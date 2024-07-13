@@ -2,7 +2,10 @@ body {
     /* font-family: Arial, sans-serif;
     margin: 0;
     padding: 0; */
+    
    background-image: url(img/d.jpg);
+   
+   background-attachment: fixed;
    background-size: 100% ;
   }
   
@@ -11,6 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+   
   }
   
   .left {
@@ -20,9 +24,11 @@ body {
   
   .right {
     flex: 1;
-    padding: 20px;
+    padding: -10px;
+    text-align: center;
   }
   
+
   img {
     max-width: 70%;
     height: auto;
@@ -31,17 +37,19 @@ body {
   }
   
   .button-container {
-    margin-top: 20px;
+    text-align: center;
+    display: inline-block;
   }
   
   button {
+    
     display: block;
     width: 100%;
     padding: 10px 20px;
     margin-bottom: 10px;
     font-size: 16px;
-    background-color: #dfdfdf;
-    color: #170505;
+    background-color: rgb(216, 112, 0);
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -49,5 +57,19 @@ body {
   }
   
   button:hover {
-    background-color: #b2db1e;
+    background-color: #ffffff;
+    color: rgb(216, 112, 0);
+
   }
+
+  h1{
+   
+  color:#dfdfdf ;
+  }
+
+  .button-container button {
+    display: block; /* Ensures each button is on a new line */
+    margin: 10px auto; /* Centers buttons horizontally with margin for spacing */
+    font-weight: bold; /* Makes button text bold */
+}
+  
