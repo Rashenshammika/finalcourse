@@ -1,0 +1,75 @@
+body {
+    /* font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; */
+    
+   background-image: url(img/d.jpg);
+   
+   background-attachment: fixed;
+   background-size: 100% ;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+  }
+  
+  .left {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .right {
+    flex: 1;
+    padding: -10px;
+    text-align: center;
+  }
+  
+
+  img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    border-radius: 8px; /* Optional: Adds rounded corners to the image */
+  }
+  
+  .button-container {
+    text-align: center;
+    display: inline-block;
+  }
+  
+  button {
+    
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    background-color: rgb(216, 112, 0);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ffffff;
+    color: rgb(216, 112, 0);
+
+  }
+
+  h1{
+   
+  color:#dfdfdf ;
+  }
+
+  .button-container button {
+    display: block; /* Ensures each button is on a new line */
+    margin: 10px auto; /* Centers buttons horizontally with margin for spacing */
+    font-weight: bold; /* Makes button text bold */
+}
+  
