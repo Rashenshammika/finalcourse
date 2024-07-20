@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Example</title>
+<style>
+body {
+    background-image: url(img/bg.jpg);
+    background-attachment: fixed;
+    background-size: 100%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.input-field {
+    margin-bottom: 20px;
+}
+
+.input-field input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px; /* Adjust width as needed */
+    box-sizing: border-box; /* Ensures padding is included in width */
+    transition: border-color 0.3s;
+}
+
+.input-field input[type="text"]:focus {
+    outline: none;
+    border-color: #4CAF50; /* Change border color on focus */
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<div class="label">Enter your search query:</div>
+<div class="input-field">
+    <input type="text" id="searchInput" placeholder="Search term">
+</div>
+<button class="button" onclick="search()">Search</button>
+
+<script>
+function search() {
+    var searchTerm = document.getElementById("searchInput").value.trim();
+    if (searchTerm === "") {
+        alert("Please enter a search term.");
+        return;
+    }
+    
+    alert("Searching for: " + searchTerm);
+    // Perform search functionality here, e.g., fetching search results from a database or API
+}
+</script>
+
+</body>
+</html>

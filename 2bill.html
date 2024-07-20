@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burgers Table</title>
+<style>
+body {
+    background-image: url(img/.jpg);
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center aligns the table */
+}
+table {
+    width: 70%;
+    margin: 0 auto; /* Centers the table horizontally */
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
+button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+button.delete {
+    background-color: #f44336; /* Red color for delete button */
+}
+button:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body><br>
+
+    <div class="input-field">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" placeholder="Enter your name">
+    </div><br>
+
+    <table id="burgersTable">
+        <tr>
+          <th>Burgers</th>
+          <th>Ad</th>
+          <th>Del</th>
+          <th>Count</th>
+          <th>Price</th>
+          <th>Tt</th> <!-- New column for total price -->
+        </tr>
+        <!-- Table rows will be added dynamically here -->
+      </table>
+      <br><br>
+      <button onclick="order()">ORDER</button>
+      <p id="orderSummary"></p>
+      <p id="totalLabel">Total Order Value: 0</p>
+      <button type="button" onclick="location.href='Burgers Table.html'"><b>Go to Burgers Table</b></button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to add rows dynamically from localStorage
+    function addRowsFromStorage() {
+        var burgers = JSON.parse(localStorage.getItem('burgers')) || [];
+        var table = document.getElementById('burgersTable');
+
+        burgers.forEach(function(burger) {
+            var row = table.insertRow(-1); // Append row at the end of the table
+            row.innerHTML = `
+                <td>${burger.name}</td>
+                <td><button onclick="countClick(this)">Ad</button></td>
+                <td><button class="delete" onclick="countDown(this)">Del</button></td>
+                <td>${burger.count}</td>
+                <td>${burger.price}</td>
+                <td>${burger.total}</td>
+            `;
+        });
+    }
+
+    // Initialize the table with rows from localStorage on page load
+    addRowsFromStorage();
+
+    // Function to handle the "ORDER" button click
+    function order() {
+        var totalValue = 0;
+        var rows = document.querySelectorAll('#burgersTable tr');
+
+        rows.forEach(function(row, index) {
+            if (index !== 0) { // Skip the header row
+                var totalCell = row.cells[5]; // Total column is the sixth column (index 5)
+                totalValue += parseInt(totalCell.textContent);
+            }
+        });
+
+        document.getElementById("totalLabel").textContent = "Total Order Value: " + totalValue;
+    }
+
+    // Function to handle the "Ad" button click
+    function countClick(button) {
+        var row = button.parentNode.parentNode;
+        var countCell = row.cells[3];
+        var totalCell = row.cells[5];
+        var count = parseInt(countCell.textContent);
+        var price = parseInt(row.cells[4].textContent);
+        countCell.textContent = count + 1;
+        totalCell.textContent = (count + 1) * price;
+
+        updateLocalStorage(row.rowIndex - 1, count + 1, (count + 1) * price);
+    }
+
+    // Function to handle the "Del" button click
+    function countDown(button) {
+        var row = button.parentNode.parentNode;
+        var countCell = row.cells[3];
+        var totalCell = row.cells[5];
+        var count = parseInt(countCell.textContent);
+        var price = parseInt(row.cells[4].textContent);
+
+        if (count > 0) {
+            countCell.textContent = count - 1;
+            totalCell.textContent = (count - 1) * price;
+
+            updateLocalStorage(row.rowIndex - 1, count - 1, (count - 1) * price);
+        } else {
+            alert("Count cannot be less than 0.");
+        }
+    }
+
+    // Function to update localStorage with count and total
+    function updateLocalStorage(index, count, total) {
+        var burgers = JSON.parse(localStorage.getItem('burgers')) || [];
+        burgers[index].count = count;
+        burgers[index].total = total;
+        localStorage.setItem('burgers', JSON.stringify(burgers));
+    }
+});
+</script>
+
+</body>
+</html>

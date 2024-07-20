@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+    /* font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; */
+    
+   background-image: url(img/d.jpg);
+   
+   background-attachment: fixed;
+   background-size: 100% ;
+  }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .left {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .right {
+            flex: 1;
+            padding: 20px; /* Adjust padding as needed */
+            text-align: center;
+            color: #fff; /* Sets text color to white */
+        }
+        
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+        }
+        
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            background-color: rgb(216, 112, 0);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #ffffff;
+            color: rgb(216, 112, 0);
+        }
+        
+        h1 {
+            color: #dfdfdf;
+        }
+        
+        .button-container {
+            text-align: center;
+            display: inline-block;
+        }
+        
+        .button-container button {
+            display: block;
+            margin: 10px auto;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <!-- Placeholder for any content on the left side -->
+        </div>
+        <div class="right">
+            <div class="button-container">
+                <h1><b>✨ MAIN ✨</b></h1>
+                <br><br><br>
+                <form id="loginForm">
+                    <input type="text" id="username" name="username" placeholder="Enter username" required><br>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required><br>   
+                    <button type="button" onclick="location.href='3staff.html'"><b>LOGIN</b></button>
+                </form>
+                <!-- Add more buttons as needed -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            // Example validation (replace with actual authentication logic)
+            if (username === "admin" && password === "password") {
+                alert("Login successful!");
+                // Redirect to another page upon successful login
+                window.location.href = "3_staff.html";
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>
