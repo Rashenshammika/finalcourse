@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bill</title>
+<style>
+body {
+    background-image: url(img/bg.jpg);
+    background-size: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+.container {
+    margin: 20px auto;
+    width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background-color: #f4f4f4;
+}
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: rgb(216, 112, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #1e7721;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Bill</h1>
+    <p><strong>Customer Name:</strong> <span id="customerName"></span></p>
+    <p><strong>Bill Code:</strong> <span id="billCode"></span></p>
+    <h2>Order Summary</h2>
+    <table id="orderSummaryTable">
+        <thead>
+            <!-- Table headers can be added here if needed -->
+        </thead>
+        <tbody id="orderSummaryBody">
+            <!-- Order summary rows will be added here -->
+        </tbody>
+    </table>
+    <p><strong>Total Order Value:</strong> <span id="totalLabel"></span></p>
+    <button onclick="goBack()">Go Back</button>
+    <button onclick="saveBill()">Save Bill</button>
+</div>
+
+<script>
+// Function to get query parameters from URL
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Function to display bill data
+function displayBillData() {
+    const customerName = decodeURIComponent(getQueryParam('name'));
+    const orderSummary = decodeURIComponent(getQueryParam('summary'));
+    const totalOrderValue = decodeURIComponent(getQueryParam('total'));
+
+    document.getElementById('customerName').textContent = customerName;
+    document.getElementById('orderSummaryBody').innerHTML = orderSummary;
+    document.getElementById('totalLabel').textContent = totalOrderValue;
+}
+
+// Function to go back to the previous page
+function goBack() {
+    window.history.back();
+}
+
+// Function to save the current bill data
+function saveBill() {
+    const billCode = generateUniqueCode();
+    const orderSummaryHtml = new XMLSerializer().serializeToString(document.getElementById('orderSummaryTable'));
+
+    const billData = {
+        customerName: document.getElementById('customerName').textContent,
+        orderSummary: orderSummaryHtml,
+        totalOrderValue: document.getElementById('totalLabel').textContent,
+        code: billCode
+    };
+
+    // Save to local storage with unique code as the key
+    localStorage.setItem(billCode, JSON.stringify(billData));
+    
+    // Update the displayed bill code
+    document.getElementById('billCode').textContent = billCode;
+
+    alert('Bill saved with code: ' + billCode);
+}
+
+// Function to generate a unique code for each bill
+function generateUniqueCode() {
+    return 'BILL-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+}
+
+// Run displayBillData function when page loads
+window.onload = displayBillData;
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Burgers Table</title>
+<style>
+body {
+    background-image: url(img/bg.jpg);
+    background-attachment: fixed;
+    background-size: 100%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+table {
+    width: 70%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: rgb(200, 105, 4);
+}
+tr:hover {
+    background-color: #f5f5f5;
+    color: black;
+}
+button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #27982a;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background-color: #45a049;
+}
+.delete {
+    background-color: #f44336;
+}
+.delete:hover {
+    background-color: #e53935;
+}
+p {
+  color: white;
+}
+label {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.input-field input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 300px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+h2{
+    color: #f5f5f5;
+}
+
+
+
+</style>
+</head>
+<body>
+    <h2>Best Burger</h2><br>
+    <div class="input-field">
+        <label for="customerName">Customer Name : </label>
+        <input type="text" id="customerName" placeholder="Enter customer name">
+    </div><br><br>
+
+    <table id="burgersTable">
+        <thead>
+            <tr>
+                <th>Burgers</th>
+                <th>Ad</th>
+                <th>Count</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <br><br>
+    <button onclick="order()">ORDER</button>
+    <p id="orderSummary"></p>
+    <p id="totalLabel">Total Order Value: 0</p>
+    <button type="button" onclick="redirectToBillPage()"><b>BILL</b></button>
+    <br><br><br><br><br>
+    <button type="button" onclick="redirectToLoginPage()"><b>GO BACK</b></button>
+
+<script>
+// Function to initialize the burgers table with burgers from localStorage
+function initializeOrderTable() {
+    const table = document.getElementById('burgersTable').getElementsByTagName('tbody')[0];
+    const storedBurgers = JSON.parse(localStorage.getItem('burgers')) || [];
+
+    // Add burgers to the table
+    storedBurgers.forEach(burger => {
+        const row = table.insertRow();
+        row.insertCell(0).textContent = burger.name;
+        row.insertCell(1).innerHTML = `<button onclick="countClick(this)">Ad</button>`;
+        row.insertCell(2).textContent = '0';
+        row.insertCell(3).textContent = burger.price;
+        row.insertCell(4).textContent = '0';
+    });
+}
+
+// Function to handle the "Ad" button click
+function countClick(button) {
+    const row = button.parentNode.parentNode;
+    const countCell = row.cells[2]; // Index for Count
+    const priceCell = row.cells[3]; // Index for Price
+    const totalCell = row.cells[4]; // Index for Total
+
+    let count = parseInt(countCell.textContent);
+    const price = parseInt(priceCell.textContent);
+
+    count++;
+    const total = count * price;
+
+    countCell.textContent = count;
+    totalCell.textContent = total;
+
+    // Update sales count in localStorage
+    updateSalesCount(row.cells[0].textContent, count);
+}
+
+// Function to update sales count in localStorage
+function updateSalesCount(burgerName, count) {
+    let salesData = JSON.parse(localStorage.getItem('salesData')) || {};
+    salesData[burgerName] = (salesData[burgerName] || 0) + count;
+    localStorage.setItem('salesData', JSON.stringify(salesData));
+}
+
+// Function to handle the "ORDER" button click
+function order() {
+    const table = document.getElementById("burgersTable");
+    const rows = table.getElementsByTagName("tr");
+    let orderSummary = "";
+    let totalOrderValue = 0;
+
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName("td");
+        const burgerName = cells[0].textContent;
+        const count = parseInt(cells[2].textContent);
+        const price = parseInt(cells[3].textContent);
+        const total = parseInt(cells[4].textContent);
+
+        if (count > 0) {
+            orderSummary += `${burgerName}: ${count} x ${price} = ${total}<br>`;
+            totalOrderValue += total;
+        }
+    }
+
+    document.getElementById("orderSummary").innerHTML = orderSummary || "No items ordered.";
+    document.getElementById("totalLabel").textContent = `Total Order Value: ${totalOrderValue}`;
+}
+
+// Function to redirect to the "bill.html" page with query parameters
+function redirectToBillPage() {
+    const customerName = document.getElementById("customerName").value;
+    const orderSummary = encodeURIComponent(document.getElementById("orderSummary").innerHTML);
+    const totalOrderValue = encodeURIComponent(document.getElementById("totalLabel").textContent);
+    
+    const url = `bill.html?name=${encodeURIComponent(customerName)}&summary=${orderSummary}&total=${totalOrderValue}`;
+    window.location.href = url;
+}
+
+// Function to redirect to the "2_login_cashier.html" page
+function redirectToLoginPage() {
+    window.location.href = '2_login_cashier.html';
+}
+
+// Initialize the order table on page load
+document.addEventListener('DOMContentLoaded', initializeOrderTable);
+</script>
+</body>
+</html>

@@ -6,34 +6,32 @@
     <title>Login Form</title>
     <style>
         body {
-    /* font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0; */
-    
-   background-image: url(img/d.jpg);
-   
-   background-attachment: fixed;
-   background-size: 100% ;
-  }
+            background-image: url(img/d.jpg);
+            background-attachment: fixed;
+            background-size: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
         .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        
+
         .left {
             flex: 1;
             padding: 20px;
         }
-        
+
         .right {
             flex: 1;
             padding: 20px; /* Adjust padding as needed */
             text-align: center;
             color: #fff; /* Sets text color to white */
         }
-        
+
         input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -43,7 +41,7 @@
             border-radius: 4px;
             border: none;
         }
-        
+
         button {
             display: block;
             width: 100%;
@@ -57,25 +55,34 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        
+
         button:hover {
-            background-color: #ffffff;
-            color: rgb(216, 112, 0);
+            background-color: #5b5b5b;
+            color: rgb(255, 255, 255);
         }
-        
+
         h1 {
             color: #dfdfdf;
         }
-        
+
         .button-container {
             text-align: center;
             display: inline-block;
         }
-        
+
         .button-container button {
             display: block;
             margin: 10px auto;
             font-weight: bold;
+        }
+
+        .button-container .back-button {
+            background-color: rgb(216, 112, 0); /* Red color */
+        }
+
+        .button-container .back-button:hover {
+            background-color: #5b5b5b;
+            color: rgb(255, 255, 255);
         }
     </style>
 </head>
@@ -86,31 +93,36 @@
         </div>
         <div class="right">
             <div class="button-container">
-                <h1><b>✨ MAIN ✨</b></h1>
+                <h1><b>✨ OWNER ✨</b></h1>
                 <br><br><br>
-                <form id="loginForm">
+                <form id="loginForm" onsubmit="return validateLogin()">
                     <input type="text" id="username" name="username" placeholder="Enter username" required><br>
                     <input type="password" id="password" name="password" placeholder="Enter password" required><br>   
-                    <button type="button" onclick="location.href='3staff.html'"><b>LOGIN</b></button>
+                    <button type="submit"><b>LOGIN</b></button>
                 </form>
-                <!-- Add more buttons as needed -->
+                <button type="button" class="back-button" onclick="goBack()"><b>GO BACK</b></button>
             </div>
         </div>
     </div>
 
     <script>
-        function login() {
+        function validateLogin() {
             var username = document.getElementById("username").value;
             var password = document.getElementById("password").value;
 
-            // Example validation (replace with actual authentication logic)
-            if (username === "admin" && password === "password") {
-                alert("Login successful!");
+            // Check if username and password match the specified credentials
+            if (username === "Rashen" && password === "R12345") {
                 // Redirect to another page upon successful login
-                window.location.href = "3_staff.html";
+                window.location.href = "3staff.html";
+                return false; // Prevent form submission (optional in this case)
             } else {
                 alert("Invalid username or password. Please try again.");
+                return false; // Prevent form submission
             }
+        }
+
+        function goBack() {
+            window.location.href = '1_main.html';
         }
     </script>
 </body>

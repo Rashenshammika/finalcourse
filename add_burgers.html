@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Burgers</title>
+<style>
+body {
+    background-image: url(img/bg.jpg);
+    background-attachment: fixed;
+    background-size: 100%;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: rgb(200, 105, 4);
+}
+button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #27982a;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+button:hover {
+    background-color: #45a049;
+}
+input {
+    padding: 6px;
+    font-size: 14px;
+    margin: 5px;
+}
+</style>
+</head>
+<body>
+
+<h2>Add Burger</h2>
+
+<input type="text" id="burgerName" placeholder="Enter Burger Name">
+<input type="number" id="burgerPrice" placeholder="Enter Price" min="0">
+<button onclick="addBurgerFromInput()">Add Burger</button>
+
+<table id="addBurgersTable">
+    <thead>
+        <tr>
+            <th>Burger</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated by JavaScript -->
+    </tbody>
+</table>
+
+<button onclick="goBack()">Back</button>
+
+<script>
+// Initialize table with data
+function initializeTable() {
+    const table = document.getElementById('addBurgersTable').getElementsByTagName('tbody')[0];
+    const burgers = [
+        // Uncomment and add initial burgers if needed
+        // { name: 'Cheeseburger', price: 500 },
+        // { name: 'Hamburger', price: 500 },
+        // { name: 'Veggie Burger', price: 300 },
+        // { name: 'Chicken Burger', price: 500 },
+        // { name: 'BBQ Burger', price: 750 },
+        // { name: 'Mushroom Swiss Burger', price: 750 },
+        // { name: 'Double Cheeseburger', price: 750 },
+        // { name: 'Bacon Burger', price: 800 },
+        // { name: 'Teriyaki Burger', price: 1000 },
+        // { name: 'Black Bean Burger', price: 1000 },
+        // { name: 'Buffalo Burger', price: 1000 }
+    ];
+
+    // Add predefined burgers to the table
+    burgers.forEach(burger => {
+        addRowToTable(burger.name, burger.price);
+    });
+
+    // Add burgers from localStorage to the table
+    const storedBurgers = JSON.parse(localStorage.getItem('burgers')) || [];
+    storedBurgers.forEach(burger => {
+        addRowToTable(burger.name, burger.price);
+    });
+}
+
+// Function to add a burger from input fields to the table and list
+function addBurgerFromInput() {
+    const name = document.getElementById('burgerName').value.trim();
+    const price = parseInt(document.getElementById('burgerPrice').value, 10);
+
+    // Validate input
+    if (!name || isNaN(price) || price <= 0) {
+        alert('Please enter a valid name and price.');
+        return;
+    }
+
+    // Add burger to the list and local storage
+    addBurger(name, price);
+
+    // Add to the table
+    addRowToTable(name, price);
+
+    // Clear input fields
+    document.getElementById('burgerName').value = '';
+    document.getElementById('burgerPrice').value = '';
+}
+
+// Function to add a row to the table and sort the table
+function addRowToTable(name, price) {
+    const table = document.getElementById('addBurgersTable').getElementsByTagName('tbody')[0];
+    const row = table.insertRow();
+    row.insertCell(0).textContent = name;
+    row.insertCell(1).textContent = price;
+
+    // Sort the table by price after adding the row
+    sortTableByPrice();
+}
+
+// Function to add a burger to the permanent list
+function addBurger(name, price) {
+    let storedBurgers = JSON.parse(localStorage.getItem('burgers')) || [];
+    if (!storedBurgers.some(burger => burger.name === name)) {
+        storedBurgers.push({ name, price });
+        localStorage.setItem('burgers', JSON.stringify(storedBurgers));
+        alert(name + " added to the list.");
+    } else {
+        alert(name + " is already in the list.");
+    }
+}
+
+// Function to sort the table by price
+function sortTableByPrice() {
+    const table = document.getElementById('addBurgersTable');
+    const rows = Array.from(table.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
+
+    rows.sort((a, b) => {
+        const priceA = parseInt(a.cells[1].textContent, 10);
+        const priceB = parseInt(b.cells[1].textContent, 10);
+        return priceA - priceB;
+    });
+
+    // Remove existing rows
+    const tbody = table.getElementsByTagName('tbody')[0];
+    tbody.innerHTML = '';
+
+    // Append sorted rows
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+// Function to go back to the "3staff.html" page
+function goBack() {
+    window.location.href = '3staff.html';
+}
+
+// Initialize the table on page load
+document.addEventListener('DOMContentLoaded', initializeTable);
+</script>
+
+</body>
+</html>
