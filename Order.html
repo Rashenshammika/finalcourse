@@ -1,195 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Burgers Table</title>
-<style>
-body {
-    background-image: url(img/bg.jpg);
-    background-attachment: fixed;
-    background-size: 100%;
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-table {
-    width: 70%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: black;
-    color: white;
-    border-radius: 10px;
-    overflow: hidden;
-}
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-th {
-    background-color: rgb(200, 105, 4);
-}
-tr:hover {
-    background-color: #f5f5f5;
-    color: black;
-}
-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    background-color: #27982a;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-button:hover {
-    background-color: #45a049;
-}
-.delete {
-    background-color: #f44336;
-}
-.delete:hover {
-    background-color: #e53935;
-}
-p {
-  color: white;
-}
-label {
-  color: white;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-.input-field input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 300px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-}
-h2{
-    color: #f5f5f5;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burgers Table</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url(img/bg.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            color: #e0e0e0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
 
+        h2 {
+            color: #ff5722;
+            font-size: 36px;
+            margin: 20px 0;
+            font-weight: 700;
+        }
 
+        .table-container {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            margin: 0 auto;
+            max-width: 800px;
+            overflow: hidden;
+        }
 
-</style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background: #2e2e2e;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+
+        th {
+            background-color: #ff5722;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        td {
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #3b3b3b;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #2e2e2e;
+        }
+
+        tr:hover {
+            background-color: #424242;
+        }
+
+        #orderSummaryTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #2e2e2e;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #orderSummaryTable th, #orderSummaryTable td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+
+        #orderSummaryTable th {
+            background-color: #ff5722;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #orderSummaryTable tr:nth-child(even) {
+            background-color: #3b3b3b;
+        }
+
+        #orderSummaryTable tr:nth-child(odd) {
+            background-color: #2e2e2e;
+        }
+
+        #orderSummaryTable tr:hover {
+            background-color: #424242;
+        }
+
+        p {
+            color: #e0e0e0;
+            font-size: 18px;
+        }
+
+        label {
+            color: #e0e0e0;
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .input-field input[type="text"] {
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ff5722;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            background-color: #ffffff;
+            color: black;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .input-field input[type="text"]:focus {
+            border-color: #ff5722;
+            box-shadow: 0 0 8px rgba(255, 87, 34, 0.5);
+        }
+
+        .button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            color: #ffffff;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .button.ad {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .button.ad:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button.order {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .button.order:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button.bill {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+
+        .button.bill:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button.go-back {
+            background: rgb(249, 15, 15);
+        }
+
+        .button.go-back:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .button.del {
+            background: #f44336; /* Red color */
+            color: white;
+        }
+
+        .button.del:hover {
+            background: #d32f2f; /* Darker red */
+        }
+    </style>
 </head>
 <body>
-    <h2>Best Burger</h2><br>
+    <h2>Best Burger</h2>
     <div class="input-field">
         <label for="customerName">Customer Name : </label>
         <input type="text" id="customerName" placeholder="Enter customer name">
     </div><br><br>
 
-    <table id="burgersTable">
-        <thead>
-            <tr>
-                <th>Burgers</th>
-                <th>Ad</th>
-                <th>Count</th>
-                <th>Price</th>
-                <th>Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table rows will be populated by JavaScript -->
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="burgersTable">
+            <thead>
+                <tr>
+                    <th>Burgers</th>
+                    <th>Ad</th>
+                    <th>Del</th> <!-- New header for "Del" button -->
+                    <th>Count</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
 
     <br><br>
-    <button onclick="order()">ORDER</button>
-    <p id="orderSummary"></p>
-    <p id="totalLabel">Total Order Value: 0</p>
-    <button type="button" onclick="redirectToBillPage()"><b>BILL</b></button>
+    <button class="button order" onclick="order()">ORDER</button>
+    <div id="orderSummary"></div><br><br>
+    <button class="button bill" type="button" onclick="playSoundAndRedirect()">BILL</button>
     <br><br><br><br><br>
-    <button type="button" onclick="redirectToLoginPage()"><b>GO BACK</b></button>
+    <button class="button go-back" type="button" onclick="redirectToLoginPage()">GO BACK</button><br><br><br>
 
-<script>
-// Function to initialize the burgers table with burgers from localStorage
-function initializeOrderTable() {
-    const table = document.getElementById('burgersTable').getElementsByTagName('tbody')[0];
-    const storedBurgers = JSON.parse(localStorage.getItem('burgers')) || [];
+    <!-- Add audio element -->
+    <audio id="clickSound" src="ok.mp3"></audio>
 
-    // Add burgers to the table
-    storedBurgers.forEach(burger => {
-        const row = table.insertRow();
-        row.insertCell(0).textContent = burger.name;
-        row.insertCell(1).innerHTML = `<button onclick="countClick(this)">Ad</button>`;
-        row.insertCell(2).textContent = '0';
-        row.insertCell(3).textContent = burger.price;
-        row.insertCell(4).textContent = '0';
-    });
-}
+    <script>
+        function initializeOrderTable() {
+            const table = document.getElementById('burgersTable').getElementsByTagName('tbody')[0];
+            const storedBurgers = JSON.parse(localStorage.getItem('burgers')) || [];
 
-// Function to handle the "Ad" button click
-function countClick(button) {
-    const row = button.parentNode.parentNode;
-    const countCell = row.cells[2]; // Index for Count
-    const priceCell = row.cells[3]; // Index for Price
-    const totalCell = row.cells[4]; // Index for Total
-
-    let count = parseInt(countCell.textContent);
-    const price = parseInt(priceCell.textContent);
-
-    count++;
-    const total = count * price;
-
-    countCell.textContent = count;
-    totalCell.textContent = total;
-
-    // Update sales count in localStorage
-    updateSalesCount(row.cells[0].textContent, count);
-}
-
-// Function to update sales count in localStorage
-function updateSalesCount(burgerName, count) {
-    let salesData = JSON.parse(localStorage.getItem('salesData')) || {};
-    salesData[burgerName] = (salesData[burgerName] || 0) + count;
-    localStorage.setItem('salesData', JSON.stringify(salesData));
-}
-
-// Function to handle the "ORDER" button click
-function order() {
-    const table = document.getElementById("burgersTable");
-    const rows = table.getElementsByTagName("tr");
-    let orderSummary = "";
-    let totalOrderValue = 0;
-
-    for (let i = 1; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName("td");
-        const burgerName = cells[0].textContent;
-        const count = parseInt(cells[2].textContent);
-        const price = parseInt(cells[3].textContent);
-        const total = parseInt(cells[4].textContent);
-
-        if (count > 0) {
-            orderSummary += `${burgerName}: ${count} x ${price} = ${total}<br>`;
-            totalOrderValue += total;
+            storedBurgers.forEach(burger => {
+                const row = table.insertRow();
+                row.insertCell(0).textContent = burger.name;
+                row.insertCell(1).innerHTML = `<button class="button ad" onclick="countClick(this)">Ad</button>`;
+                row.insertCell(2).innerHTML = `<button class="button del" onclick="decrementCount(this)">Del</button>`; // New Del button
+                row.insertCell(3).textContent = '0';
+                row.insertCell(4).textContent = burger.price;
+                row.insertCell(5).textContent = '0';
+            });
         }
-    }
 
-    document.getElementById("orderSummary").innerHTML = orderSummary || "No items ordered.";
-    document.getElementById("totalLabel").textContent = `Total Order Value: ${totalOrderValue}`;
-}
+        function countClick(button) {
+            const row = button.parentNode.parentNode;
+            const countCell = row.cells[3];
+            const priceCell = row.cells[4];
+            const totalCell = row.cells[5];
 
-// Function to redirect to the "bill.html" page with query parameters
-function redirectToBillPage() {
-    const customerName = document.getElementById("customerName").value;
-    const orderSummary = encodeURIComponent(document.getElementById("orderSummary").innerHTML);
-    const totalOrderValue = encodeURIComponent(document.getElementById("totalLabel").textContent);
-    
-    const url = `bill.html?name=${encodeURIComponent(customerName)}&summary=${orderSummary}&total=${totalOrderValue}`;
-    window.location.href = url;
-}
+            let count = parseInt(countCell.textContent);
+            const price = parseInt(priceCell.textContent);
 
-// Function to redirect to the "2_login_cashier.html" page
-function redirectToLoginPage() {
-    window.location.href = '2_login_cashier.html';
-}
+            count++;
+            const total = count * price;
 
-// Initialize the order table on page load
-document.addEventListener('DOMContentLoaded', initializeOrderTable);
-</script>
+            countCell.textContent = count;
+            totalCell.textContent = total;
+
+            updateSalesCount(row.cells[0].textContent, count);
+        }
+
+        function decrementCount(button) {
+            const row = button.parentNode.parentNode;
+            const countCell = row.cells[3];
+            const priceCell = row.cells[4];
+            const totalCell = row.cells[5];
+
+            let count = parseInt(countCell.textContent);
+            const price = parseInt(priceCell.textContent);
+
+            if (count > 0) {
+                count--;
+                const total = count * price;
+
+                countCell.textContent = count;
+                totalCell.textContent = total;
+
+                updateSalesCount(row.cells[0].textContent, count);
+            }
+        }
+
+        function updateSalesCount(burgerName, count) {
+            let salesData = JSON.parse(localStorage.getItem('salesData')) || {};
+            salesData[burgerName] = (salesData[burgerName] || 0) + count;
+            localStorage.setItem('salesData', JSON.stringify(salesData));
+        }
+
+        function order() {
+            const table = document.getElementById("burgersTable");
+            const rows = table.getElementsByTagName("tr");
+            let orderSummaryHTML = `
+                <table id="orderSummaryTable">
+                    <thead>
+                        <tr>
+                            <th>Burger</th>
+                            <th>Count</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            let totalOrderValue = 0;
+
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName("td");
+                const burgerName = cells[0].textContent;
+                const count = parseInt(cells[3].textContent);
+                const price = parseInt(cells[4].textContent);
+                const total = parseInt(cells[5].textContent);
+
+                if (count > 0) {
+                    orderSummaryHTML += `
+                        <tr>
+                            <td>${burgerName}</td>
+                            <td>${count}</td>
+                            <td>${price}</td>
+                            <td>${total}</td>
+                        </tr>
+                    `;
+                    totalOrderValue += total;
+                }
+            }
+
+            orderSummaryHTML += `
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3">Total Order Value:</th>
+                            <td>${totalOrderValue}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+
+            document.getElementById("orderSummary").innerHTML = orderSummaryHTML || "<p>No items ordered.</p>";
+        }
+
+        function playSoundAndRedirect() {
+            const sound = document.getElementById('clickSound');
+            sound.play();
+            setTimeout(() => {
+                redirectToBillPage();
+            }, 300);
+        }
+
+        function redirectToBillPage() {
+            const customerName = document.getElementById("customerName").value;
+            const orderSummary = encodeURIComponent(document.getElementById("orderSummary").innerHTML);
+            
+            const url = `bill.html?name=${encodeURIComponent(customerName)}&summary=${orderSummary}`;
+            window.location.href = url;
+        }
+
+        function redirectToLoginPage() {
+            window.location.href = '2_login_cashier.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeOrderTable);
+    </script>
 </body>
 </html>

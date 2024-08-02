@@ -6,78 +6,92 @@
     <title>Login Form</title>
     <style>
         body {
-            background-image: url(img/d.jpg);
-            background-attachment: fixed;
-            background-size: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
+    background-image: url(img/d.jpg);
+    background-attachment: fixed;
+    background-size: 100%; /* Ensures the background covers the entire viewport */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-        .left, .right {
-            flex: 1;
-            padding: 20px;
-        }
+.left, .right {
+    flex: 1;
+    padding: 20px;
+}
 
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            font-size: 16px;
-            border-radius: 4px;
-            border: none;
-        }
+input[type="text"], input[type="password"] {
+    width: 80%;
+    padding: 15px; /* Increased padding for larger input fields */
+    margin-bottom: 20px; /* Increased margin for better spacing */
+    box-sizing: border-box;
+    font-size: 18px; /* Larger font size for readability */
+    border-radius: 8px; /* Rounded corners */
+    border: 2px solid #ccc; /* Light border for better visibility */
+    background-color: #fff; /* White background for input fields */
+    transition: border-color 0.3s ease;
+}
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px 20px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            background-color: rgb(216, 112, 0);
-            color: #ffffff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: rgb(216, 112, 0); /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
 
-        button:hover {
-            background-color: #5b5b5b;
-            color: rgb(255, 255, 255);
-        }
+button {
+    display: block;
+    width: 100%;
+    max-width: 400px; /* Limit maximum width for large screens */
+    padding: 15px 30px; /* Increased padding for larger buttons */
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    font-size: 18px; /* Larger font size for buttons */
+    background-color: rgb(216, 112, 0);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+}
 
-        h1 {
-            color: #dfdfdf;
-        }
+button:hover {
+    background-color: #ffffff;
+    color: rgb(216, 112, 0);
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Darker shadow on hover */
+}
 
-        .button-container {
-            text-align: center;
-            display: inline-block;
-        }
+h1 {
+    color: #dfdfdf;
+    font-size: 2.5em; /* Larger font size for the title */
+    margin-bottom: 40px; /* More space below the title */
+    font-weight: bold; /* Bold font for emphasis */
+}
 
-        .button-container button {
-            display: block;
-            margin: 10px auto;
-            font-weight: bold;
-        }
+.button-container {
+    text-align: center;
+}
 
-        .button-container .back-button {
-            background-color: rgb(216, 112, 0);
-            color: #ffffff;
-        }
+.button-container button {
+    display: block;
+    margin: 20px auto; /* Center buttons horizontally with more space */
+    font-weight: bold;
+}
 
-        .button-container .back-button:hover {
-            background-color: #5b5b5b;
-            color: rgb(255, 255, 255);
-        }
+.button-container .back-button {
+    background-color: rgb(216, 112, 0);
+    color: #ffffff;
+}
+
+.button-container .back-button:hover {
+    background-color: #ffffff;
+    color: rgb(216, 112, 0);
+}
+
     </style>
 </head>
 <body>
@@ -88,10 +102,10 @@
         <div class="right">
             <div class="button-container">
                 <h1><b>✨ CASHIER ✨</b></h1>
-                <br><br><br>
+                <br>
                 <form id="loginForm" onsubmit="return validateLogin()">
                     <input type="text" id="username" name="username" placeholder="Enter username" required><br>
-                    <input type="password" id="password" name="password" placeholder="Enter password" required><br>   
+                    <input type="password" id="password" name="password" placeholder="Enter password" required><br><br><br>  
                     <button type="submit"><b>LOGIN</b></button>
                     <button type="button" class="back-button" onclick="goBack()"><b>BACK</b></button>
                 </form>
