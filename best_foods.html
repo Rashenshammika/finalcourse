@@ -6,68 +6,98 @@
 <title>Sales Table</title>
 <style>
 body {
-    background-image: url(img/bg.jpg);
+    background-image: url('img/bg.jpg');
     background-attachment: fixed;
-    background-size: 100%;
+    background-size: cover;
     font-family: Arial, sans-serif;
     text-align: center;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
+
+h2 {
+    color: #ffffff;
+    margin: 20px 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
 table {
-    width: 70%;
-    margin: 0 auto;
+    width: 80%;
+    margin: 20px auto;
     border-collapse: collapse;
     background-color: black;
     color: white;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 th, td {
-    padding: 8px;
+    padding: 12px;
     text-align: left;
 }
+
 th {
     background-color: rgb(200, 105, 4);
+    color: white;
+    font-weight: bold;
 }
+
+td {
+    background-color: #333;
+}
+
+tr:nth-child(even) td {
+    background-color: #444;
+}
+
 tr:hover {
-    background-color: #f5f5f5;
-    color: black;
+    background-color: #555;
 }
+
 button {
-    padding: 6px 12px;
-    font-size: 14px;
+    padding: 10px 20px;
+    font-size: 16px;
     border: none;
-    background-color: #249428;
+    background-color: #da1010;
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 button:hover {
-    background-color: #45a049;
+    background-color: #ffffff;
+    color: red;
+    transform: scale(1.05);
 }
+
 p {
-  color: white;
-}
-h2{
     color: #f5f5f5;
 }
 </style>
 </head>
-<body><br>
-    <h2>Best Burger</h2><br>
-    <table id="salesTable">
-        <thead>
-            <tr>
-                <th>Burgers</th>
-                <th>Sold</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Sales data will be populated by JavaScript -->
-        </tbody>
-    </table>
+<body>
 
-    <br><br>
-    <button onclick="goBack()">BACK</button>
+<h2>Best Burger Sales</h2>
+
+<table id="salesTable">
+    <thead>
+        <tr>
+            <th>Burgers</th>
+            <th>Sold</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Sales data will be populated by JavaScript -->
+    </tbody>
+</table>
+
+<button onclick="goBack()">BACK</button>
 
 <script>
 // Function to initialize the sales table with burgers from localStorage
@@ -103,5 +133,6 @@ function goBack() {
 // Initialize the sales table on page load
 document.addEventListener('DOMContentLoaded', initializeSalesTable);
 </script>
+
 </body>
 </html>

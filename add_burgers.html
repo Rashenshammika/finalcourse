@@ -5,47 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Add Burgers</title>
 <style>
+/* Existing styles */
 body {
-    background-image: url(img/bg.jpg);
+    background-image: url('img/bg.jpg');
     background-attachment: fixed;
-    background-size: 100%;
-    color: white;
-    font-family: Arial, sans-serif;
+    background-size: cover;
+    color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
+
+h2 {
+    color: #ffffff;
+    margin: 20px 0;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ff5722;
+    border-radius: 5px;
+    margin: 5px;
+    width: 200px;
+}
+
+/* Button styling */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Add Burger button specific styling */
+.add-button {
+    background-color: #4caf50; /* Green color */
+}
+
+.add-button:hover {
+    background-color: #ffffff;
+    color: green; /* Darker green on hover */
+}
+
+/* Back button specific styling */
+.back-button {
+    background-color: red; /* Red color */
+}
+
+.back-button:hover {
+    background-color: #ffffff; 
+    color: red;/* Darker red on hover */
+}
+
 table {
     width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
-    background-color: black;
-    color: white;
+    background-color: #333;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 th, td {
-    padding: 8px;
+    padding: 12px;
     text-align: left;
 }
+
 th {
-    background-color: rgb(200, 105, 4);
-}
-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    background-color: #27982a;
+    background-color: #ff5722;
     color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 5px;
 }
-button:hover {
-    background-color: #45a049;
+
+td {
+    background-color: #444;
+    color: #f5f5f5;
 }
-input {
-    padding: 6px;
-    font-size: 14px;
-    margin: 5px;
+
+tr:nth-child(even) td {
+    background-color: #555;
+}
+
+tr:hover {
+    background-color: #666;
+}
+
+input, button {
+    font-family: inherit;
+    font-size: inherit;
 }
 </style>
 </head>
@@ -55,7 +108,7 @@ input {
 
 <input type="text" id="burgerName" placeholder="Enter Burger Name">
 <input type="number" id="burgerPrice" placeholder="Enter Price" min="0">
-<button onclick="addBurgerFromInput()">Add Burger</button>
+<button class="add-button" onclick="addBurgerFromInput()">Add Burger</button>
 
 <table id="addBurgersTable">
     <thead>
@@ -68,8 +121,8 @@ input {
         <!-- Data will be populated by JavaScript -->
     </tbody>
 </table>
-
-<button onclick="goBack()">Back</button>
+<br><br>
+<button class="back-button" onclick="goBack()">Back</button>
 
 <script>
 // Initialize table with data

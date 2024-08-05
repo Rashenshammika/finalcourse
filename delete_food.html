@@ -8,54 +8,93 @@
 body {
     background-image: url(img/bg.jpg);
     background-attachment: fixed;
-    background-size: 100%;
+    background-size: cover;
     font-family: Arial, sans-serif;
     text-align: center;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
+
+h2 {
+    color: #f5f5f5;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 table {
     width: 70%;
-    margin: 0 auto;
+    margin: 20px auto;
     border-collapse: collapse;
-    background-color: black;
-    color: white;
+    background-color: #222;
+    color: #f5f5f5;
     border-radius: 10px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 th, td {
-    padding: 8px;
+    padding: 12px;
     text-align: left;
 }
+
 th {
     background-color: rgb(200, 105, 4);
-}
-tr:hover {
-    background-color: #f5f5f5;
-    color: black;
-}
-button {
-    padding: 6px 12px;
-    font-size: 14px;
-    border: none;
-    background-color: #27982a;
     color: white;
-    cursor: pointer;
+}
+
+td {
+    background-color: #333;
+}
+
+tr:nth-child(even) td {
+    background-color: #444;
+}
+
+tr:hover {
+    background-color: #555;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
     border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 button:hover {
-    background-color: #45a049;
+    transform: scale(1.05);
 }
+
 .delete {
     background-color: #f44336;
 }
+
 .delete:hover {
-    background-color: #e53935;
+    background-color: #ffffff;
+    color: red;
 }
-h2{
-    color: #f5f5f5;
+
+.back-button {
+    background-color: #d32f2f;
+}
+
+.back-button:hover {
+    background-color: #ffffff;
+    color: red;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.5);
 }
 </style>
 </head>
-<body><br>
+<body>
     <h2>Delete Burger</h2><br>
     <table id="burgersTable">
         <thead>
@@ -69,10 +108,8 @@ h2{
             <!-- Table rows will be populated by JavaScript -->
         </tbody>
     </table>
-
-    <br><br>
-  
-    <button onclick="goBack()"><b>BACK</b></button>
+<br><br>
+    <button class="back-button" onclick="goBack()"><b>BACK</b></button>
 
 <script>
 // Function to initialize the burgers table with burgers from localStorage
@@ -118,26 +155,6 @@ function updateLocalStorage() {
     }
 
     localStorage.setItem('burgers', JSON.stringify(updatedBurgers));
-}
-
-// Function to redirect to the copied table page
-function redirectToCopiedTablePage() {
-    const table = document.getElementById('burgersTable').getElementsByTagName('tbody')[0];
-    const rows = table.getElementsByTagName('tr');
-    const copiedBurgers = [];
-
-    for (let i = 0; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        const burgerName = cells[0].textContent;
-        const price = cells[1].textContent; // Extract price
-
-        if (burgerName && price) {
-            copiedBurgers.push({ name: burgerName, price: parseInt(price, 10) });
-        }
-    }
-
-    localStorage.setItem('copiedBurgers', JSON.stringify(copiedBurgers));
-    window.location.href = 'copiedTable.html';
 }
 
 // Function to go back to the "3staff.html" page
